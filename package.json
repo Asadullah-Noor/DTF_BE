@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "dev": "node --watch src/server.js",
-  "start": "node src/server.js",
-  "seed": "node src/seed/seed.js",
-  "test": "node --test"
-},
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "seed": "node src/seed/seed.js",
+    "test": "node --test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -25,6 +25,7 @@
     "mongoose": "^9.11.2",
     "morgan": "^1.12.1",
     "multer": "^2.4.0",
+    "pdfkit": "^0.20.2",
     "zod": "^4.6.7"
   }
 }
