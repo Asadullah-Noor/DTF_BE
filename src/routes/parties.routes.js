@@ -2,13 +2,14 @@ import { Router } from 'express';
 import { z } from 'zod';
 import Party from '../models/Party.js';
 import Transaction from '../models/Transaction.js';
-import { validate, objectId } from '../middleware/validate.js';
+import { validate } from '../middleware/validate.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { HttpError } from '../utils/HttpError.js';
 import { logAudit } from '../services/audit.js';
 import { getSettings } from '../services/settings.js';
 import { getBalanceMap, withBalance, getStatement } from '../services/partyService.js';
 import { statementWorkbook } from '../services/excel.js';
+import { streamStatementPdf } from '../services/statementPdf.js';
 
 const router = Router();
 
@@ -125,6 +126,16 @@ router.get(
     res.setHeader('Content-Disposition', `attachment; filename="statement-${safe}.xlsx"`);
     await wb.xlsx.write(res);
     res.end();
+  })
+);
+
+router.get(
+  '/:id/statement/pdf',
+  validate(rangeQuery, 'query'),
+  asyncHandler(async (req, res) => {
+    const party = await findParty(req.params.id);
+    const [st, settings] = await Promise.all([getStatement(party.toObject(), req.query), getSettings()]);
+    streamStatementPdf(res, st, settings);
   })
 );
 

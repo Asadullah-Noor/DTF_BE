@@ -9,7 +9,7 @@ import exportRoutes from './export.routes.js';
 import invoicesRoutes from './invoices.routes.js';
 import paymentsRoutes from './payments.routes.js';
 import expensesRoutes from './expenses.routes.js';
-
+import reportsRoutes from './reports.routes.js';    
 const api = Router();
 
 api.get('/health', (_req, res) => res.json({ ok: true }));
@@ -25,5 +25,5 @@ api.use('/export', exportRoutes);
 api.use('/invoices', invoicesRoutes);
 api.use('/payments', paymentsRoutes);
 api.use('/expenses', expensesRoutes);
-
+api.use('/reports', reportsRoutes);
 export default api;
