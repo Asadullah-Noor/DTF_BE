@@ -14,7 +14,6 @@ for (const k of ['MONGO_URI', 'JWT_SECRET']) {
 const uploadsDir = process.env.VERCEL
   ? '/tmp/uploads'
   : path.resolve(__dirname, '../../uploads');
-
 fs.mkdirSync(uploadsDir, { recursive: true });
 
 export const env = {
